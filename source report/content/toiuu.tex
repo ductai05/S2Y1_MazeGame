@@ -1,0 +1,43 @@
+\newpage
+\section{Lý thuyết trò chơi: Tối ưu đường đi với năng lượng phát sinh ngẫu nhiên}
+
+\subsection{Bài toán và các yêu cầu}
+
+\paragraph{Bài toán}
+\paragraph{}{Bài toán được đặt ra như sau: "Cho trước \textbf{số bước đi tối đa} của Tâm là \textbf{H}, và \textbf{phát sinh ngẫu nhiên} \textbf{K} viên năng lượng trong bản đồ. Tìm đường đi ngắn nhất đến nhà Gia Huy, biết rằng cứ mỗi bước đi sẽ mất 1 năng lượng và ăn được 1 viên năng lượng sẽ có thêm $V_k$ năng lượng với $V_k$ là giá trị phát sinh ngẫu nhiên thuộc \{1, 2, 3, 4, 5\}. Giá trị của \textbf{H} và \textbf{K} cũng sẽ tương ứng với các mức độ trò chơi. Hãy trình bày chi tiết đề xuất của bạn về các giá trị này và lý do."}
+
+\paragraph{Phân tích yêu cầu}
+\paragraph{}{Dễ thấy bài toán có 2 yêu cầu chính:}
+\begin{enumerate}
+    \item Cho trước giá trị của H và K. \textbf{Tìm đường đi ngắn nhất} đến đích.
+    \item \textbf{Tìm giá trị} của \textbf{H} và \textbf{K} tương ứng với độ lớn của bản đồ (20x20, 50x50, 100x100).
+\end{enumerate}
+\paragraph{}{và 2 cách mà viên năng lượng được phát sinh:}
+\begin{enumerate}
+    \item Tất cả viên năng lượng $V_k$ được phát sinh giá trị \textbf{trước khi bắt đầu trò chơi}.
+    \item Giá trị viên năng lượng $V_k$ được phát sinh \textbf{khi chạm đến}.
+\end{enumerate}
+
+\subsection{Bài toán tìm đường đi ngắn nhất khi $V_k$ được phát sinh khi chạm đến}
+
+\paragraph{Đặt tên các giá trị}
+\paragraph{}{Với mỗi ô trong mê cung, ta đều có thể tìm được đường đi ngắn nhất đến đích. Gọi số bước của đường đi này là $S$. Cùng với mỗi ô trong mê cung, ta gọi $H_{now}$ là số bước đi còn lại có thể đi.}
+\paragraph{}{Gọi $m$ là số ô năng lượng có thể đi tới. Với $m \ge 1$, gọi $P_i$ ($1 \le i \le m$) là số bước để đi đến ô năng lượng có thể đi tới. $P_1$ là số bước đi đến ô năng lượng gần nhất}
+
+\paragraph{Hướng giải quyết}
+\paragraph{}{Trong trường hợp $H_{now}\ge S$ tại ô bất kì, bài toán ngay lập tức được giải.}
+
+\paragraph{}{Ta dễ thấy khi $H_{now} < S$, ta phải tìm cách để đưa $H_{now}\ge S$, điều này chỉ có thể thực hiện khi ta nhận được năng lượng $V_k$. Do đó, tại các ô năng lượng và ô bắt đầu mới tồn tại khả năng cho $H_{now}\ge S$}. Suy ra, ta phải đi đến: hoặc là đích đến (nếu $H_{now}\ge S$), hoặc là một trong các ô năng lượng có thể di chuyển tới được.
+
+\paragraph{}{Từ vị trí đang đứng, nếu $H_{now} < P_1$ hay $m = 0$ (điều kiện $H_{now} < S$), ta không tìm được đường đi đến đích, bài toán kết thúc.} Ngược lại, nếu $H_{now} \ge P_1$ hay $m \ge 1$, ta sẽ \textbf{chọn ô năng lượng} \texttt{good} ($1 \le good \le m$) để di chuyển tới, với $\left| (H_{now}-P_{good} + 1)-S_{good} \right|$ \textbf{đạt giá trị nhỏ nhất} (tức là càng tiến sát tới mục tiêu tìm được đường đi: $H_{now} \ge S$)
+
+\subsection{Bài toán tìm đường đi ngắn nhất khi $V_k$ được phát sinh trước khi bắt đầu trò chơi}
+
+
+
+\subsection{Đề xuất các giá trị H và K}
+
+\paragraph{Đề xuất các giá trị H và K}
+\paragraph{}{Chúng tôi đề xuất $H = 1,5 \times S$, $K = 0,2 \times level^{2}$, với $S$ là số bước đi ít nhất để đến đích và $level \in \{20, 50, 100\}$ tương ứng với các mức độ của trò chơi.}
+\paragraph{}{\textbf{Lý do}: Người chơi thông thường sẽ không tìm được đường đi tốt nhất để đi trong mê cung. Vì vậy, đường đi thường lớn hơn giá trị S, chúng tôi chọn $1,5 \times S$ và thêm $2 
+\times level^{2}$ viên năng lượng - mật độ phân bố phù hợp với mê cung.}
